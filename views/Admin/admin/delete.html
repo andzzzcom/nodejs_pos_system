@@ -1,0 +1,151 @@
+{% extends "../Main.html" %}
+{% block main %} 
+    <!-- ============================================================== -->
+    <!-- Page wrapper  -->
+    <!-- ============================================================== -->
+    <div class="page-wrapper">
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h4 class="text-themecolor">Remove Admin</h4>
+                </div>
+                <div class="col-md-7 align-self-center text-right">
+                    <div class="d-flex justify-content-end align-items-center">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+                            <li class="breadcrumb-item"><a href="/admin/admin">Admin</a></li>
+                            <li class="breadcrumb-item active">Remove Admin</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Start Page Content -->
+            <!-- Row -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Remove Admin</h4>
+                            <h5 class="box-title m-b-20">
+                                {% if(message.success) %}
+                                    <div class="alert alert-success" role="alert">
+                                        {{message.success}}
+                                    </div>
+                                {% endif %}
+                                {% if(message.failed) %}
+                                    <div class="alert alert-warning" role="alert">
+                                        {{message.failed}}
+                                    </div>
+                                {% endif %}
+                            </h5>
+                            
+                            <form class="form p-t-20" enctype="multipart/form-data" action="/admin/admin/delete/{{admin[0].id_admin}}" method="post" >
+                                <div class="form-group">
+                                    <label for="exampleInputuname">Admin Name</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1"><i class="ti-user"></i></span>
+                                        </div>
+                                        <input type="text" readonly value="{{admin[0].name}}" name="name" class="form-control" placeholder="Admin Name" aria-label="Admin Name" aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="exampleInputuname">Admin Email</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1"><i class="ti-email"></i></span>
+                                        </div>
+                                        <input type="email" readonly value="{{admin[0].email}}" name="email" class="form-control" placeholder="Admin Email" aria-label="Admin Email" aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="exampleInputuname">Admin Phone</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1"><i class="ti-microphone"></i></span>
+                                        </div>
+                                        <input type="text" readonly value="{{admin[0].phone}}" name="phone" class="form-control" placeholder="Admin Phone" aria-label="Admin Phone" aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="exampleInputuname">Admin Address</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1"><i class="ti-home"></i></span>
+                                        </div>
+                                        <input type="text" readonly value="{{admin[0].address}}" name="address" class="form-control" placeholder="Admin Address" aria-label="Admin Address" aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="exampleInputuname">Admin Born Place</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1"><i class="ti-time"></i></span>
+                                        </div>
+                                        <input type="text" readonly value="{{admin[0].born_place}}" name="born_place" class="form-control" placeholder="Admin Born Place" aria-label="Admin Born Place" aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="exampleInputuname">Admin Gender</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1"><i class="ti-split-v-alt"></i></span>
+                                        </div>
+                                        <select readonly class="form-control" name="gender">
+                                            <option {% if admin[0].gender==1 %} selected {% endif %} value="1">Male</option>
+                                            <option {% if admin[0].gender==0 %} selected {% endif %} value="0">Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="exampleInputuname">Admin Avatar</label>
+                                    <br>
+                                    <img src="/Admin/theme1/images/users/{{admin[0].avatar}}" width="80px" height="80px">
+                                    <br>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">Status Admin</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1"><i class="fa fa-server"></i></span>
+                                        </div>
+                                        <select readonly name="status" class="form-control custom-select">
+                                            <option {% if admin[0].status==1 %} selected {% endif %} value="1">Active</option>
+                                            <option {% if admin[0].status==0 %} selected {% endif %} value="0">Not Active</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-success waves-effect waves-light m-r-10"> <i class="fa fa-save"></i> Remove Admin</button>
+                                <a href="/admin/admin" class="btn btn-primary">Cancel</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Row -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
+{% endblock %}

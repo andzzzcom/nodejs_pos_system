@@ -1,0 +1,297 @@
+{% extends "./Main.html" %}
+{% block main %}
+	
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="row page-titles">
+                    <div class="col-md-5 align-self-center">
+                        <h4 class="text-themecolor">Admin Panel | {{settings[0].title_web}}</h4>
+                    </div>
+                    <div class="col-md-7 align-self-center text-right">
+                        <div class="d-flex justify-content-end align-items-center">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="admin/home">Home</a></li>
+                            </ol>
+                            <a href="/admin/invoice" class="btn btn-primary d-none d-lg-block m-l-15"><i class="fa fa-plus-circle"></i> Invoices</a>
+                            <a href="/admin/product" class="btn btn-info d-none d-lg-block m-l-15"><i class="fa fa-plus-circle"></i> Products</a>
+                            <a href="/admin/category" class="btn btn-warning d-none d-lg-block m-l-15"><i class="fa fa-plus-circle"></i> Categories</a>
+                            <a href="/admin/admin" class="btn btn-success d-none d-lg-block m-l-15"><i class="fa fa-plus-circle"></i> Admins</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Info box -->
+                <!-- ============================================================== -->
+                <!-- .row -->
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title text-uppercase">Invoices</h5>
+                                <div class="text-right"> <span class="text-muted">Total Invoices</span>
+                                    <h2>{{invoices.length}}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title text-uppercase">Products</h5>
+                                <div class="text-right"> <span class="text-muted">Total Products</span>
+                                    <h2>{{products.length}}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title text-uppercase">Categories</h5>
+                                <div class="text-right"> <span class="text-muted">Total Locations</span>
+                                    <h2>{{categories.length}}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title text-uppercase">Admins</h5>
+                                <div class="text-right"> <span class="text-muted">Total Sisi Lain</span>
+                                    <h2>{{admins.length}}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+					
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+								<h4 class="card-title">List 5 Latests Invoices</h4>
+								<a href="/admin/invoice" class="btn btn-primary"><i class="fa fa-plus-circle"></i> View All</a>
+								<div class="table-responsive">
+									<table class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+										<thead>
+											<tr>
+												<th>No</th>
+												<th>Invoice Code</th>
+												<th>Total Price</th>
+												<th>Status</th>
+											</tr>
+										</thead>
+										<tfoot>
+											<tr>
+												<th>No</th>
+												<th>Invoice Code</th>
+												<th>Total Price</th>
+												<th>Status</th>
+											</tr>
+										</tfoot>
+										<tbody>
+                                            {% for invoice in invoices.slice(0, 5) %}
+												<tr>
+													<td>{{loop.index}}</td>
+													<td>
+                                                        {{invoice.invoice_code}}
+													</td>
+													<td>
+                                                        Rp{{invoice.total_price}},-
+													</td>
+													<td>
+                                                        {% if invoice.status==1 %}
+                                                            <p class="label label-success">Active</p>
+                                                        {% else %}
+																<p class="label label-danger">Not Active</p>
+                                                        {% endif %}
+													</td>
+												</tr>
+                                            {% endfor %}
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+								<h4 class="card-title">List 5 Latests Products</h4>
+								<a href="/admin/product" class="btn btn-info"><i class="fa fa-plus-circle"></i> View All</a>
+								<div class="table-responsive">
+									<table class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+										<thead>
+											<tr>
+												<th>No</th>
+												<th>Name</th>
+												<th>Price</th>
+												<th>Status</th>
+											</tr>
+										</thead>
+										<tfoot>
+											<tr>
+												<th>No</th>
+												<th>Name</th>
+												<th>Price</th>
+												<th>Status</th>
+											</tr>
+										</tfoot>
+										<tbody>
+                                            {% for product in products.slice(0, 5) %}
+												<tr>
+													<td>{{loop.index}}</td>
+													<td>
+                                                        {{product.name}}
+													</td>
+													<td>
+                                                        Rp{{product.price}},-
+													</td>
+													<td>
+                                                        {% if product.status==1 %}
+                                                            <p class="label label-success">Active</p>
+                                                        {% else %}
+																<p class="label label-danger">Not Active</p>
+                                                        {% endif %}
+													</td>
+												</tr>
+                                            {% endfor %}
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+                    
+					
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+								<h4 class="card-title">List 5 Latests Categories</h4>
+								<a href="/admin/category" class="btn btn-warning"><i class="fa fa-plus-circle"></i> View All</a>
+								<div class="table-responsive">
+									<table class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+										<thead>
+											<tr>
+												<th>No</th>
+												<th>Name</th>
+												<th>Status</th>
+											</tr>
+										</thead>
+										<tfoot>
+											<tr>
+												<th>No</th>
+												<th>Name</th>
+												<th>Status</th>
+											</tr>
+										</tfoot>
+										<tbody>
+                                            {% for category in categories.slice(0, 5) %}
+												<tr>
+													<td>{{loop.index}}</td>
+													<td>
+                                                        {{category.name}}
+													</td>
+													<td>
+                                                        {% if category.status==1 %}
+                                                            <p class="label label-success">Active</p>
+                                                        {% else %}
+																<p class="label label-danger">Not Active</p>
+                                                        {% endif %}
+													</td>
+												</tr>
+                                            {% endfor %}
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+								<h4 class="card-title">List 5 Latests Admins</h4>
+								<a href="/admin/admin" class="btn btn-success"><i class="fa fa-plus-circle"></i> View All</a>
+								<div class="table-responsive">
+									<table class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+										<thead>
+											<tr>
+												<th>No</th>
+												<th></th>
+												<th>Name</th>
+												<th>Status</th>
+											</tr>
+										</thead>
+										<tfoot>
+											<tr>
+												<th>No</th>
+												<th></th>
+												<th>Name</th>
+												<th>Status</th>
+											</tr>
+										</tfoot>
+										<tbody>
+                                            {% for admin in admins.slice(0, 5) %}
+												<tr>
+													<td>{{loop.index}}</td>
+													<td>
+                                                        <img src="/Admin/theme1/images/users/{{admin.avatar}}" width="50px" height="50px">
+													</td>
+													<td>
+                                                        {{admin.name}}
+													</td>
+													<td>
+                                                        {% if admin.status==1 %}
+                                                            <p class="label label-success">Active</p>
+                                                        {% else %}
+																<p class="label label-danger">Not Active</p>
+                                                        {% endif %}
+													</td>
+												</tr>
+                                            {% endfor %}
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+
+                </div>
+                <!-- /.row -->
+                <!-- ============================================================== -->
+                <!-- End Info box -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Comment - table -->
+                <!-- ============================================================== -->
+               
+                <!-- ============================================================== -->
+                <!-- End Comment - chats -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- End Page Content -->
+                <!-- ============================================================== -->
+                
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+{% endblock %}

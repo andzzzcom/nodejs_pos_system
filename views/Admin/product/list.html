@@ -1,0 +1,148 @@
+{% extends "../Main.html" %}
+{% block main %}
+	<!-- ============================================================== -->
+    <!-- Page wrapper  -->
+    <!-- ============================================================== -->
+    <div class="page-wrapper">
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h4 class="text-themecolor">List Product</h4>
+                </div>
+                <div class="col-md-7 align-self-center text-right">
+                    <div class="d-flex justify-content-end align-items-center">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+                            <li class="breadcrumb-item active">Product</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Start Page Content -->
+            <!-- ============================================================== -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">List Product</h4>
+                            <a href="/admin/product/add" class="btn btn-success m-b-20">
+                                <i class="fa fa-coffee"></i>
+                                Add Product
+                            </a>
+                            {% if(message.success) %}
+                                <div class="alert alert-success" role="alert">
+                                    {{message.success}}
+                                </div>
+                            {% endif %}
+                            {% if(message.failed) %}
+                                <div class="alert alert-warning" role="alert">
+                                    {{message.failed}}
+                                </div>
+                            {% endif %}
+
+                            <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
+                            <div class="table-responsive m-t-10">
+                                <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th width="5%">No</th>
+                                            <th width="10%"></th>
+                                            <th width="25%">Name</th>
+                                            <th width="15%">Created Date</th>
+                                            <th width="15%">Last Updated Date</th>
+                                            <th width="10%">Status</th>
+                                            <th width="10%"></th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>No</th>
+                                            <th></th>
+                                            <th>Name</th>
+                                            <th>Created Date</th>
+                                            <th>Last Updated Date</th>
+                                            <th>Status</th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        {% set i = 1 %}
+                                        {% for product in products %}
+                                            <tr>
+                                                <td>{{i}}</td>
+                                                <td><img src="/Admin/theme1/images/product/{{product.thumbnail}}" width="80px" height="80px"></td>
+                                                <td>{{product.name}}</td>
+                                                <td>{{ product.created_date }}</td>
+                                                <td>{{ product.last_updated }}</td>
+                                                <td>
+                                                    {% if product.status==1 %}
+                                                        <p class="label label-success">Active</p>
+                                                    {% else %}
+                                                        <p class="label label-danger">Not Active</p>
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    <a href="/admin/product/edit/{{product.id_product}}"><i class="fa fa-edit fa-2x"></i> </a>
+                                                    <a href="/admin/product/delete/{{product.id_product}}"><i class="fa fa-trash fa-2x"></i> </a>
+                                                </td>
+                                            </tr>
+                                            {% set i = i+1 %}
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End PAge Content -->
+            <!-- ============================================================== -->
+            
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
+    
+    
+    <script>
+        function removeProduct(idProduct)
+        {
+            var c = confirm("Are you sure delete this product?");
+            if(c == true){
+                $.ajax({
+                    url:'<?php echo site_url("admin/product/delete_product_action");?>',
+                    type:"POST",
+                    data: {product_id:idProduct},
+                    success: function(result){
+                        if(result){
+                            alert("Successfully Removed Product !");
+                            location.reload();
+                        }else{
+                            alert("Failed Removed Product !");
+                            location.reload();
+                        }
+                    }
+                });
+            }else
+            {
+                return false;
+            }
+        }
+    
+    </script>
+{% endblock %}

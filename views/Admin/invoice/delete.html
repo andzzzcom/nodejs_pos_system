@@ -1,0 +1,116 @@
+{% extends "../Main.html" %}
+{% block main %} 
+    <!-- ============================================================== -->
+    <!-- Page wrapper  -->
+    <!-- ============================================================== -->
+    <div class="page-wrapper">
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h4 class="text-themecolor">Remove Invoice</h4>
+                </div>
+                <div class="col-md-7 align-self-center text-right">
+                    <div class="d-flex justify-content-end align-items-center">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+                            <li class="breadcrumb-item"><a href="/admin/invoice">Invoice</a></li>
+                            <li class="breadcrumb-item active">Remove Invoice</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Start Page Content -->
+            <!-- Row -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Remove Invoice</h4>
+                            <h5 class="box-title m-b-20">
+                                {% if(message.success) %}
+                                    <div class="alert alert-success" role="alert">
+                                        {{message.success}}
+                                    </div>
+                                {% endif %}
+                                {% if(message.failed) %}
+                                    <div class="alert alert-warning" role="alert">
+                                        {{message.failed}}
+                                    </div>
+                                {% endif %}    
+                            </h5>
+                            <form class="form p-t-20" action="/admin/invoice/delete/{{invoice[0].id_invoice}}" method="post" >
+                                <div class="form-group">
+                                    <label for="exampleInputuname">Invoice Code</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1"><i class="ti-user"></i></span>
+                                        </div>
+                                        <input type="text" readonly value="{{invoice[0].invoice_code}}" name="invoice_code" class="form-control" placeholder="Invoice Code" aria-label="Invoice Code" aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputuname">Product</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1"><i class="ti-image"></i></span>
+                                        </div>
+                                        <select readonly class="form-control" name="product">
+                                            {%for product in products %}
+                                            <option {% if invoice[0].id_product==product.id_product %} selected {% endif %} value="{{product.id_product}}">
+                                                {{product.name}}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputuname">Tax Price</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1"><i class="ti-money"></i></span>
+                                        </div>
+                                        <input type="number" readonly value="{{invoice[0].tax_price}}" step="1" min="1" name="tax_price" class="form-control" placeholder="Tax Price" aria-label="Tax Price" aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">Status Invoice</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1"><i class="fa fa-server"></i></span>
+                                        </div>
+                                        <select readonly name="status" class="form-control custom-select">
+                                            <option {% if invoice[0].status=="1" %} selected {% endif %} value="1">Active</option>
+                                            <option {% if invoice[0].status=="0" %} selected {% endif %} value="0">Not Active</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-success waves-effect waves-light m-r-10"> <i class="fa fa-save"></i> Remove Invoice</button>
+                                <a href="/admin/invoice" class="btn btn-primary">Cancel</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Row -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
+{% endblock %}

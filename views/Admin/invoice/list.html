@@ -1,0 +1,135 @@
+{% extends "../Main.html" %}
+{% block main %}
+	<!-- ============================================================== -->
+    <!-- Page wrapper  -->
+    <!-- ============================================================== -->
+    <div class="page-wrapper">
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h4 class="text-themecolor">List Invoices</h4>
+                </div>
+                <div class="col-md-7 align-self-center text-right">
+                    <div class="d-flex justify-content-end align-items-center">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+                            <li class="breadcrumb-item active">Invoices</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Start Page Content -->
+            <!-- ============================================================== -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">List Invoices</h4>
+                            <a href="/admin/invoice/add" class="btn btn-success m-b-20">
+                                <i class="fa fa-coffee"></i>
+                                Add Invoice
+                            </a>
+                            {% if(message.success) %}
+                                <div class="alert alert-success" role="alert">
+                                    {{message.success}}
+                                </div>
+                            {% endif %}
+                            {% if(message.failed) %}
+                                <div class="alert alert-warning" role="alert">
+                                    {{message.failed}}
+                                </div>
+                            {% endif %}
+                            <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
+                            <div class="table-responsive m-t-10">
+                                <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th width="5%">No</th>
+                                            <th width="10%">Invoice Code</th>
+                                            <th width="25%">Products</th>
+                                            <th width="30%">Price</th>
+                                            <th width="10%">Last Updated Date</th>
+                                            <th width="10%">Status</th>
+                                            <th width="10%"></th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Invoice Code</th>
+                                            <th>Products</th>
+                                            <th>Price</th>
+                                            <th>Last Updated Date</th>
+                                            <th>Status</th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        {% set i = 1 %}
+                                        {% for invoice in invoices %}
+                                            <tr>
+                                                <td>{{i}}</td>
+                                                <td>{{ invoice.invoice_code }}</td>
+                                                <td>
+                                                    <a href="/admin/invoice/product/{{invoice.id_invoice}}">
+                                                        <i class="fa fa-eye"></i>
+                                                        VIew Products
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <p>
+                                                        <b>Subtotal:</b> Rp{{ invoice.subtotal_price }},-
+                                                    </p>
+                                                    <p>
+                                                        <b>Tax Price:</b> Rp{{ invoice.tax_price }},-
+                                                    </p>
+                                                    <p>
+                                                        <b>Total Price:</b> Rp{{ invoice.total_price }},-
+                                                    </p>
+                                                </td>
+                                                <td>{{ invoice.created_date }}</td>
+                                                <td>
+                                                    {% if invoice.status==1 %}
+                                                        <p class="label label-success">Active</p>
+                                                    {% else %}
+                                                        <p class="label label-danger">Not Active</p>
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    <a href="/admin/invoice/edit/{{invoice.id_invoice}}"><i class="fa fa-edit fa-2x"></i> </a>
+                                                    <a href="/admin/invoice/delete/{{invoice.id_invoice}}"><i class="fa fa-trash fa-2x"></i> </a>
+                                                </td>
+                                            </tr>
+                                            {% set i = i+1 %}
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End PAge Content -->
+            <!-- ============================================================== -->
+            
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
+    
+{% endblock %}
